@@ -1,15 +1,19 @@
 import React from "react";
-import Header from "./components/Header";
+import { BrowserRouter, Route, Routes } from "react-router";
+import AppLayout from "./shared/AppLayout";
 import Feed from "./components/Feed";
+import Bookmarks from "./components/Bookmarks";
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <Header />
-      <main>
-        <Feed />
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<Feed />} />
+          <Route path="bookmarks" element={<Bookmarks />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 
