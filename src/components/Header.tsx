@@ -1,21 +1,11 @@
-import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import useStore from "../store/useStore";
+import { useShallow } from "zustand/shallow";
 
 const Header: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    // Get initial state from localStorage
-    const isDarkMode = localStorage.getItem("darkMode");
-    return isDarkMode === "true";
-  });
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("darkMode", isDarkMode.toString());
-  }, [isDarkMode]);
+  const [isDarkMode, toggleDarkMode] = useStore(
+    useShallow((state) => [state.darkMode, state.toggleDarkMode])
+  );
 
   return (
     <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
@@ -38,7 +28,7 @@ const Header: React.FC = () => {
         </NavLink>
       </div>
       <button
-        onClick={() => setIsDarkMode(!isDarkMode)}
+        onClick={toggleDarkMode}
         className="bg-gray-700 px-4 py-2 rounded-md"
       >
         {isDarkMode ? "Light Mode" : "Dark Mode"}

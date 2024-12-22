@@ -20,6 +20,7 @@ export interface StoreState {
   posts: Post[];
   bookmarkedIds: number[];
   toasts: Toast[];
+  darkMode: boolean;
   toggleLike: (id: number) => void;
   toggleBookmark: (id: number) => void;
   showToast: (
@@ -28,6 +29,7 @@ export interface StoreState {
     duration?: number
   ) => void;
   removeToast: (id: number) => void;
+  toggleDarkMode: () => void;
 }
 
 const useStore = create<StoreState>()(
@@ -177,6 +179,17 @@ const useStore = create<StoreState>()(
       ],
       bookmarkedIds: [],
       toasts: [],
+      darkMode: true,
+      toggleDarkMode: () =>
+        set((state) => {
+          const newDarkMode = !state.darkMode;
+          if (newDarkMode) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+          return { darkMode: newDarkMode };
+        }),
       toggleLike: (id: number) =>
         set((state) => ({
           posts: state.posts.map((post) =>
@@ -209,11 +222,19 @@ const useStore = create<StoreState>()(
         })),
     }),
     {
-      name: "bookmarked-ids",
+      name: "APP_STATE",
       partialize(state) {
         return {
           bookmarkedIds: state.bookmarkedIds,
+          darkMode: state.darkMode,
         };
+      },
+      onRehydrateStorage: () => (state) => {
+        if (state?.darkMode) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
       },
     }
   )

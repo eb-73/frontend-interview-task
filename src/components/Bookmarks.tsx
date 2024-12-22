@@ -16,7 +16,7 @@ const Bookmarks = () => {
       <h1 className="text-2xl font-bold mb-4">
         Bookmarked posts ({bookmarkedPosts.length})
       </h1>
-      {bookmarkedPosts.length > 0 &&
+      {bookmarkedPosts.length > 0 ? (
         bookmarkedPosts.map((post) => (
           <PostCard
             key={post.id}
@@ -26,8 +26,8 @@ const Bookmarks = () => {
             image={post.image}
             liked={post.liked}
           />
-        ))}
-      {bookmarkedPosts.length === 0 && (
+        ))
+      ) : (
         <div className="w-full flex flex-col items-center justify-center gap-2 h-[calc(100vh-152px)] text-gray-800 dark:text-gray-300">
           <p className="text-lg font-semibold text-inherit">
             No bookmarked posts yet!
