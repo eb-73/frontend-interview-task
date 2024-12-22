@@ -16,7 +16,7 @@ interface Toast {
   duration: number;
 }
 
-interface StoreState {
+export interface StoreState {
   posts: Post[];
   bookmarkedIds: number[];
   toasts: Toast[];

@@ -60,6 +60,7 @@ const PostCard: React.FC<PostCardProps> = ({
       )}
       <div className="flex items-center gap-2 flex-wrap">
         <button
+          data-testid="like-button"
           onClick={toggleLikeHandler}
           className={`px-4 py-2 rounded ${
             liked ? "bg-red-500 text-white" : "bg-gray-200 dark:bg-gray-700"
@@ -68,6 +69,7 @@ const PostCard: React.FC<PostCardProps> = ({
           {liked ? "Unlike" : "Like"}
         </button>
         <button
+          data-testid="bookmark-button"
           onClick={toggleBookmarkHandler}
           className={`px-4 py-2 rounded truncate ${
             bookmarked
