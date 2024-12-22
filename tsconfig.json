@@ -1,7 +1,19 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext", // Allows the use of ES module syntax
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["jest", "@testing-library/jest-dom", "@testing-library/react"] // Add Jest types,
+  },
+  "include": [
+    "src", // Include all files in the src directory
+    "jest.setup.ts", // Ensure this file is included
+    "**/*.test.ts", // Include all test files with .test.ts extension
+    "**/*.test.tsx" // Include all test files with .test.tsx extension
+  ],
+  "exclude": ["node_modules"]
 }
